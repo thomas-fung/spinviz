@@ -16,6 +16,16 @@ coerce_injury_values <- function(x, column_name) {
   values
 }
 
+# Single source of truth for which body regions are visible from only one
+# side of the body. svg_id_lookup(), label_position_lookup(), and the
+# combined "both views" label table (both_label_position_lookup()) each
+# need to agree on this, so it is defined once here and each of those
+# functions validates its own region set against it, instead of encoding
+# the same front-only/back-only knowledge independently three times.
+view_exclusive_regions <- function() {
+  list(front_only = "Abdomen", back_only = c("Thoracic Spine", "Lumbosacral"))
+}
+
 # Shared front/back mapping from a title-cased Region.area to the SVG
 # element id(s) it should colour. Kept as a single lookup table so the two
 # views cannot silently drift apart; view-specific asymmetries (e.g. Hip
@@ -45,6 +55,12 @@ svg_id_lookup <- function(view_choice_inner) {
   back[["Hip Groin"]] <- c("Left_Hip_Groin", "Right_Hip_Groin")
   back[["Thoracic Spine"]] <- "Thoracic_Spine"
   back[["Lumbosacral"]] <- "Lumbosacral"
+
+  exclusive <- view_exclusive_regions()
+  stopifnot(
+    setequal(setdiff(names(front), names(back)), exclusive$front_only),
+    setequal(setdiff(names(back), names(front)), exclusive$back_only)
+  )
 
   if (view_choice_inner == "front") front else back
 }
@@ -100,8 +116,64 @@ label_position_lookup <- function(view_choice_inner) {
     "Lumbosacral"    , 0.76     , 0.65     , 0.53      , 0.64
   )
 
+  exclusive <- view_exclusive_regions()
+  stopifnot(
+    setequal(
+      setdiff(front_only$Region.area, back_only$Region.area),
+      exclusive$front_only
+    ),
+    setequal(
+      setdiff(back_only$Region.area, front_only$Region.area),
+      exclusive$back_only
+    )
+  )
+
   view_specific <- if (view_choice_inner == "front") front_only else back_only
   bind_rows(common_positions, view_specific)
+}
+
+# Label positions for the combined "front + back" layout. The numeric
+# coordinates are independently tuned for the narrower three-panel
+# composite (they are not a transform of label_position_lookup()'s
+# single-view coordinates), but which regions are only visible from one
+# side is not: that is validated against view_exclusive_regions() so this
+# table cannot silently drift from svg_id_lookup()/label_position_lookup().
+both_label_position_lookup <- function() {
+  positions <- tribble(
+    ~Region.area     , ~label_y , ~front_target_x , ~front_target_y , ~back_target_x , ~back_target_y ,
+    "Head"           , 1.05     , 0.56            , 1.01            , 0.49           , 1.01           ,
+    "Neck"           , 1.00     , 0.56            , 0.91            , 0.50           , 0.92           ,
+    "Shoulder"       , 0.96     , 0.64            , 0.87            , 0.42           , 0.87           ,
+    "Thoracic Spine" , 0.91     , NA_real_        , NA_real_        , 0.52           , 0.83           ,
+    "Chest"          , 0.87     , 0.55            , 0.82            , 0.48           , 0.80           ,
+    "Upper Arm"      , 0.82     , 0.64            , 0.79            , 0.41           , 0.79           ,
+    "Elbow"          , 0.77     , 0.65            , 0.74            , 0.41           , 0.74           ,
+    "Forearm"        , 0.73     , 0.66            , 0.70            , 0.40           , 0.70           ,
+    "Abdomen"        , 0.69     , 0.55            , 0.68            , NA_real_       , NA_real_       ,
+    "Hip Groin"      , 0.65     , 0.56            , 0.63            , 0.47           , 0.66           ,
+    "Lumbosacral"    , 0.61     , NA_real_        , NA_real_        , 0.53           , 0.64           ,
+    "Wrist"          , 0.57     , 0.65            , 0.61            , 0.41           , 0.61           ,
+    "Hand"           , 0.53     , 0.65            , 0.57            , 0.41           , 0.57           ,
+    "Thigh"          , 0.48     , 0.60            , 0.48            , 0.45           , 0.48           ,
+    "Knee"           , 0.40     , 0.60            , 0.41            , 0.46           , 0.41           ,
+    "Lower Leg"      , 0.31     , 0.60            , 0.31            , 0.46           , 0.31           ,
+    "Ankle"          , 0.22     , 0.58            , 0.21            , 0.48           , 0.21           ,
+    "Foot"           , 0.18     , 0.60            , 0.17            , 0.46           , 0.17
+  )
+
+  exclusive <- view_exclusive_regions()
+  stopifnot(
+    setequal(
+      positions$Region.area[is.na(positions$front_target_x)],
+      exclusive$back_only
+    ),
+    setequal(
+      positions$Region.area[is.na(positions$back_target_x)],
+      exclusive$front_only
+    )
+  )
+
+  positions
 }
 
 #' @title Heat map of Injuries on Human Body
@@ -493,27 +565,7 @@ injury_heatmap <- function(
         )
       )
 
-    both_label_positions <- tribble(
-      ~Region.area     , ~label_y , ~front_target_x , ~front_target_y , ~back_target_x , ~back_target_y ,
-      "Head"           , 1.05     , 0.56            , 1.01            , 0.49           , 1.01           ,
-      "Neck"           , 1.00     , 0.56            , 0.91            , 0.50           , 0.92           ,
-      "Shoulder"       , 0.96     , 0.64            , 0.87            , 0.42           , 0.87           ,
-      "Thoracic Spine" , 0.91     , NA_real_        , NA_real_        , 0.52           , 0.83           ,
-      "Chest"          , 0.87     , 0.55            , 0.82            , 0.48           , 0.80           ,
-      "Upper Arm"      , 0.82     , 0.64            , 0.79            , 0.41           , 0.79           ,
-      "Elbow"          , 0.77     , 0.65            , 0.74            , 0.41           , 0.74           ,
-      "Forearm"        , 0.73     , 0.66            , 0.70            , 0.40           , 0.70           ,
-      "Abdomen"        , 0.69     , 0.55            , 0.68            , NA_real_       , NA_real_       ,
-      "Hip Groin"      , 0.65     , 0.56            , 0.63            , 0.47           , 0.66           ,
-      "Lumbosacral"    , 0.61     , NA_real_        , NA_real_        , 0.53           , 0.64           ,
-      "Wrist"          , 0.57     , 0.65            , 0.61            , 0.41           , 0.61           ,
-      "Hand"           , 0.53     , 0.65            , 0.57            , 0.41           , 0.57           ,
-      "Thigh"          , 0.48     , 0.60            , 0.48            , 0.45           , 0.48           ,
-      "Knee"           , 0.40     , 0.60            , 0.41            , 0.46           , 0.41           ,
-      "Lower Leg"      , 0.31     , 0.60            , 0.31            , 0.46           , 0.31           ,
-      "Ankle"          , 0.22     , 0.58            , 0.21            , 0.48           , 0.21           ,
-      "Foot"           , 0.18     , 0.60            , 0.17            , 0.46           , 0.17
-    )
+    both_label_positions <- both_label_position_lookup()
 
     draw_text <- isTRUE(show_labels) || isTRUE(show_values)
 

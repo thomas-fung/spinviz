@@ -13,6 +13,12 @@
 * `injury_heatmap()`'s front/back label coordinate tables are now built
   from a single shared lookup (`label_position_lookup()`) instead of two
   hand-duplicated tables, so the views cannot silently drift apart.
+* `injury_heatmap()`'s combined "both views" label table
+  (`both_label_position_lookup()`) now validates its front-only/back-only
+  regions against the same single source of truth
+  (`view_exclusive_regions()`) used by the SVG id and per-view label
+  lookups, instead of re-encoding which regions are one-sided a third
+  time.
 * `test_colour()` now restores the caller's `graphics::par()` settings on
   exit instead of permanently changing the plotting layout (`mfrow`).
 * Fixed a documentation typo in `test_colour()` ("coloublind" ->

@@ -68,6 +68,46 @@ test_that("label_position_lookup includes view-only regions", {
   expect_false(any(c("Thoracic Spine", "Lumbosacral") %in% front$Region.area))
 })
 
+test_that("both_label_position_lookup agrees with view_exclusive_regions", {
+  exclusive <- spinviz:::view_exclusive_regions()
+  positions <- spinviz:::both_label_position_lookup()
+
+  expect_setequal(
+    positions$Region.area[is.na(positions$front_target_x)],
+    exclusive$back_only
+  )
+  expect_setequal(
+    positions$Region.area[is.na(positions$back_target_x)],
+    exclusive$front_only
+  )
+})
+
+test_that("svg_id_lookup and label_position_lookup agree with view_exclusive_regions", {
+  exclusive <- spinviz:::view_exclusive_regions()
+
+  svg_front <- spinviz:::svg_id_lookup("front")
+  svg_back <- spinviz:::svg_id_lookup("back")
+  expect_setequal(
+    setdiff(names(svg_front), names(svg_back)),
+    exclusive$front_only
+  )
+  expect_setequal(
+    setdiff(names(svg_back), names(svg_front)),
+    exclusive$back_only
+  )
+
+  label_front <- spinviz:::label_position_lookup("front")
+  label_back <- spinviz:::label_position_lookup("back")
+  expect_setequal(
+    setdiff(label_front$Region.area, label_back$Region.area),
+    exclusive$front_only
+  )
+  expect_setequal(
+    setdiff(label_back$Region.area, label_front$Region.area),
+    exclusive$back_only
+  )
+})
+
 test_that("injury_heatmap returns a ggplot for a single view", {
   df <- sample_injury_data()
   p <- injury_heatmap(df, "boxing", "front", sex = "male", show_values = FALSE)
