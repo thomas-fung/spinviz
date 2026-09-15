@@ -27,15 +27,21 @@ the frequency column in the data frame.}
 
 \item{sex}{which body diagram to use: \code{"male"} or \code{"female"}.}
 
-\item{palette}{WIP - placeholder to add custom colour options}
+\item{palette}{Optional colour palette.
+\itemize{
+\item A single palette name supported by \code{\link{diagram_colours}} (viridis or HCL),
+e.g. \code{"magma"} or \code{"Reds"}.
+\item A character vector of hex colours, e.g. \code{c("#FFFFFF", "#FF0000")}.
+\item HCL palette names can be listed with \code{grDevices::hcl.pals()}.
+}}
 
 \item{opacity}{Numeric between \code{0} and \code{1}. Opacity of the filled body regions.}
 
 \item{show_labels}{Logical. If \code{TRUE}, show region names.}
 
-\item{show_values}{(optional) Logical. If \code{TRUE}, show injury values.}
+\item{show_values}{Logical. If \code{TRUE}, show injury values.}
 
-\item{show_scale}{(optional) Logical. If \code{TRUE}, show the colour scale (legend).}
+\item{show_scale}{Logical. If \code{TRUE}, show the colour scale (legend).}
 }
 \value{
 A plot in R-studio viewer
@@ -54,9 +60,13 @@ Region.area <- rep("Example", length(Subcategory))
 boxing <- c(15, 5, 18, 12, 20, 6, 10, 14, 9, 9, 11, 3, 16, 13, 7, 8, 18, 22)
 df <- data.frame(Region.area, Subcategory, boxing)
 # Generate a plot for front view, male
-p <- injury_heatmap(df, "boxing", "front", sex = "male", show_values = FALSE)
+p1 <- injury_heatmap(df, "boxing", "front", sex = "male", show_values = FALSE)
+# You can customise the colour palette by:
+p2 <- injury_heatmap(df, "boxing", "front", sex = "female", palette = "plasma")
 # You can add your own plot title by:
-p + ggplot2::labs(
-  title = "Boxing Injury Heatmap (Front)"
-)
+p2 + ggplot2::labs(title = "Boxing Injury Heatmap (Front)")
+}
+\seealso{
+\code{\link{diagram_colours}} to preview supported palette names.
+\code{\link{test_colour}} to visualise palettes.
 }
