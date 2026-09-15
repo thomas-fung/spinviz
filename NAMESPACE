@@ -4,6 +4,7 @@ export(diagram_colours)
 export(injury_heatmap)
 export(test_colour)
 importFrom(dplyr,
+  bind_rows,
   filter,
   left_join,
   mutate,

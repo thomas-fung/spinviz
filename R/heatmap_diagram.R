@@ -59,6 +59,51 @@ map_svg_ids <- function(region, view_choice_inner) {
   })
 }
 
+# Shared front/back label placement lookup. Most regions share the same
+# label/target coordinates in both views; only the rows that genuinely
+# differ between views (Head, Neck, Shoulder, Forearm, Hip Groin), or that
+# only exist in one view (Abdomen is front-only; Thoracic Spine and
+# Lumbosacral are back-only), need a view-specific override.
+label_position_lookup <- function(view_choice_inner) {
+  common_positions <- tribble(
+    ~Region.area , ~label_x , ~label_y , ~target_x , ~target_y ,
+    "Chest"      , 0.8      , 0.87     , 0.51      , 0.80      ,
+    "Upper Arm"  , 0.2      , 0.82     , 0.45      , 0.79      ,
+    "Elbow"      , 0.15     , 0.77     , 0.44      , 0.74      ,
+    "Wrist"      , 0.85     , 0.61     , 0.44      , 0.61      ,
+    "Hand"       , 0.2      , 0.57     , 0.45      , 0.57      ,
+    "Thigh"      , 0.8      , 0.48     , 0.50      , 0.48      ,
+    "Knee"       , 0.2      , 0.40     , 0.51      , 0.40      ,
+    "Lower Leg"  , 0.8      , 0.31     , 0.51      , 0.31      ,
+    "Ankle"      , 0.2      , 0.22     , 0.52      , 0.21      ,
+    "Foot"       , 0.75     , 0.18     , 0.50      , 0.17
+  )
+
+  front_only <- tribble(
+    ~Region.area , ~label_x , ~label_y , ~target_x , ~target_y ,
+    "Head"       , 0.9      , 1.01     , 0.55      , 1.01      ,
+    "Neck"       , 0.8      , 0.97     , 0.55      , 0.91      ,
+    "Shoulder"   , 0.2      , 0.92     , 0.45      , 0.86      ,
+    "Abdomen"    , 0.8      , 0.73     , 0.52      , 0.70      ,
+    "Forearm"    , 0.2      , 0.69     , 0.44      , 0.68      ,
+    "Hip Groin"  , 0.90     , 0.65     , 0.50      , 0.65
+  )
+
+  back_only <- tribble(
+    ~Region.area     , ~label_x , ~label_y , ~target_x , ~target_y ,
+    "Head"           , 0.9      , 1.05     , 0.54      , 1.01      ,
+    "Neck"           , 0.8      , 1.00     , 0.55      , 0.92      ,
+    "Shoulder"       , 0.2      , 0.96     , 0.47      , 0.87      ,
+    "Thoracic Spine" , 0.75     , 0.91     , 0.57      , 0.83      ,
+    "Forearm"        , 0.2      , 0.73     , 0.44      , 0.68      ,
+    "Hip Groin"      , 0.90     , 0.69     , 0.50      , 0.66      ,
+    "Lumbosacral"    , 0.76     , 0.65     , 0.53      , 0.64
+  )
+
+  view_specific <- if (view_choice_inner == "front") front_only else back_only
+  bind_rows(common_positions, view_specific)
+}
+
 #' @title Heat map of Injuries on Human Body
 #'
 #' @description
@@ -86,7 +131,7 @@ map_svg_ids <- function(region, view_choice_inner) {
 #' @param show_values Logical. If `TRUE`, show injury values.
 #' @param show_scale Logical. If `TRUE`, show the colour scale (legend).
 
-#' @importFrom dplyr select rename mutate tribble slice pull left_join rowwise filter transmute
+#' @importFrom dplyr select rename mutate tribble slice pull left_join rowwise filter transmute bind_rows
 #' @importFrom xml2 read_xml xml_root write_xml xml_attr xml_set_attr xml_find_all
 #' @importFrom grDevices colorRampPalette as.raster adjustcolor
 #' @importFrom ggplot2 ggplot aes geom_tile theme theme_void element_text annotation_raster coord_cartesian margin geom_text unit geom_segment scale_fill_gradientn guide_colorbar
@@ -202,58 +247,12 @@ injury_heatmap <- function(
       stop("Invalid sex/view combination.", call. = FALSE)
     )
 
-    if (view_choice_inner == "front") {
-      processed_injury_data <- base_data |>
-        mutate(SVG_ID = map_svg_ids(.data$Region.area, "front"))
+    processed_injury_data <- base_data |>
+      mutate(SVG_ID = map_svg_ids(.data$Region.area, view_choice_inner))
 
-      stopifnot("SVG_ID" %in% names(processed_injury_data))
+    stopifnot("SVG_ID" %in% names(processed_injury_data))
 
-      label_positions <- tribble(
-        ~Region.area , ~label_x , ~label_y , ~target_x , ~target_y ,
-        "Head"       , 0.9      , 1.01     , 0.55      , 1.01      ,
-        "Neck"       , 0.8      , 0.97     , 0.55      , 0.91      ,
-        "Shoulder"   , 0.2      , 0.92     , 0.45      , 0.86      ,
-        "Chest"      , 0.8      , 0.87     , 0.51      , 0.80      ,
-        "Upper Arm"  , 0.2      , 0.82     , 0.45      , 0.79      ,
-        "Elbow"      , 0.15     , 0.77     , 0.44      , 0.74      ,
-        "Abdomen"    , 0.8      , 0.73     , 0.52      , 0.70      ,
-        "Forearm"    , 0.2      , 0.69     , 0.44      , 0.68      ,
-        "Hip Groin"  , 0.90     , 0.65     , 0.50      , 0.65      ,
-        "Wrist"      , 0.85     , 0.61     , 0.44      , 0.61      ,
-        "Hand"       , 0.2      , 0.57     , 0.45      , 0.57      ,
-        "Thigh"      , 0.8      , 0.48     , 0.50      , 0.48      ,
-        "Knee"       , 0.2      , 0.40     , 0.51      , 0.40      ,
-        "Lower Leg"  , 0.8      , 0.31     , 0.51      , 0.31      ,
-        "Ankle"      , 0.2      , 0.22     , 0.52      , 0.21      ,
-        "Foot"       , 0.75     , 0.18     , 0.50      , 0.17
-      )
-    } else {
-      # back
-
-      processed_injury_data <- base_data |>
-        mutate(SVG_ID = map_svg_ids(.data$Region.area, "back"))
-
-      label_positions <- tribble(
-        ~Region.area     , ~label_x , ~label_y , ~target_x , ~target_y ,
-        "Head"           , 0.9      , 1.05     , 0.54      , 1.01      ,
-        "Neck"           , 0.8      , 1.00     , 0.55      , 0.92      ,
-        "Shoulder"       , 0.2      , 0.96     , 0.47      , 0.87      ,
-        "Thoracic Spine" , 0.75     , 0.91     , 0.57      , 0.83      ,
-        "Chest"          , 0.8      , 0.87     , 0.51      , 0.80      ,
-        "Upper Arm"      , 0.2      , 0.82     , 0.45      , 0.79      ,
-        "Elbow"          , 0.15     , 0.77     , 0.44      , 0.74      ,
-        "Forearm"        , 0.2      , 0.73     , 0.44      , 0.68      ,
-        "Hip Groin"      , 0.90     , 0.69     , 0.50      , 0.66      ,
-        "Lumbosacral"    , 0.76     , 0.65     , 0.53      , 0.64      ,
-        "Wrist"          , 0.85     , 0.61     , 0.44      , 0.61      ,
-        "Hand"           , 0.2      , 0.57     , 0.45      , 0.57      ,
-        "Thigh"          , 0.8      , 0.48     , 0.50      , 0.48      ,
-        "Knee"           , 0.2      , 0.40     , 0.51      , 0.40      ,
-        "Lower Leg"      , 0.8      , 0.31     , 0.51      , 0.31      ,
-        "Ankle"          , 0.2      , 0.22     , 0.52      , 0.21      ,
-        "Foot"           , 0.75     , 0.18     , 0.50      , 0.17
-      )
-    }
+    label_positions <- label_position_lookup(view_choice_inner)
 
     processed_injury_data <- processed_injury_data |>
       unnest(cols = c(SVG_ID)) |>

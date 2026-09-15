@@ -10,6 +10,9 @@
   cannot be converted to numeric, instead of silently coercing them to `NA`.
 * `injury_heatmap()`'s documentation for the `palette` argument is now
   regenerated and no longer shows the stale "WIP" placeholder text.
+* `injury_heatmap()`'s front/back label coordinate tables are now built
+  from a single shared lookup (`label_position_lookup()`) instead of two
+  hand-duplicated tables, so the views cannot silently drift apart.
 * `test_colour()` now restores the caller's `graphics::par()` settings on
   exit instead of permanently changing the plotting layout (`mfrow`).
 * Fixed a documentation typo in `test_colour()` ("coloublind" ->
