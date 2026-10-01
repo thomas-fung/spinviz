@@ -91,11 +91,8 @@ boxing <- c(15, 5, 18, 12, 20, 6, 10, 14, 9, 9, 11, 3, 16, 13, 7, 8, 18, 22)
 df <- data.frame(Region.area, Subcategory, boxing)
 # Generate a plot for front view, male
 p1 <- injury_heatmap(df, "boxing", "front", sex = "male", show_values = FALSE)
-#> Error in loadNamespace(x): there is no package called ‘rsvg’
 # You can customise the colour palette by:
 p2 <- injury_heatmap(df, "boxing", "front", sex = "female", palette = "plasma")
-#> Error in loadNamespace(x): there is no package called ‘rsvg’
 # You can add your own plot title by:
 p2 + ggplot2::labs(title = "Boxing Injury Heatmap (Front)")
-#> Error: object 'p2' not found
 ```
