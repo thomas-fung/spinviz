@@ -2,8 +2,8 @@
 
 Writes a CSV file in the format expected by
 [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md):
-one row per recognised body subcategory, with `Region.area` and
-`Subcategory` columns and one empty column per sport for the user to
+one row per recognised body subcategory, with `region_area` and
+`subcategory` columns and one empty column per sport for the user to
 fill in with injury frequencies.
 
 ## Usage

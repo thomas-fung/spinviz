@@ -34,7 +34,17 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.1.0000" id="spinviz-0010000">spinviz 0.0.1.0000<a class="anchor" aria-label="anchor" href="#spinviz-0010000"></a></h2>
-<ul><li>Removed a duplicate <code>grDevices</code> entry from <code>DESCRIPTION</code> Imports.</li>
+<div class="section level3">
+<h3 id="breaking-changes-0-0-1-0000">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-1-0000"></a></h3>
+<ul><li>The required column names for injury data have been standardised to snake_case: <code>Region.area</code> is now <code>region_area</code> and <code>Subcategory</code> is now <code>subcategory</code>. This affects <code><a href="../reference/create_injury_template.html">create_injury_template()</a></code>, <code><a href="../reference/read_injury_data.html">read_injury_data()</a></code>, and <code><a href="../reference/injury_heatmap.html">injury_heatmap()</a></code>. Existing CSV files using the old names must be updated; <code><a href="../reference/read_injury_data.html">read_injury_data()</a></code> now errors on the old names with a hint explaining the rename.</li>
+<li>Example sport columns in the README and template now use lowercase names (e.g. <code>sport1</code> instead of <code>Sport_1</code>) for consistency. Sport column names remain free-form.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-changes-0-0-1-0000">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-0-0-1-0000"></a></h3>
+<ul><li>New <code><a href="../reference/create_injury_template.html">create_injury_template()</a></code> writes a template CSV pre-filled with all recognised body subcategories and one column per requested sport, ready to be filled in with injury frequencies.</li>
+<li>New <code><a href="../reference/read_injury_data.html">read_injury_data()</a></code> reads and validates such a CSV, checking for the required <code>region_area</code>/<code>subcategory</code> columns, at least one sport column, and unrecognised (possibly misspelled) subcategory values. Files are read with <code>check.names = FALSE</code> so user-supplied column names are preserved exactly as written.</li>
+<li>Added <code>rsvg</code> to Imports. It is required at runtime by <code><a href="https://docs.ropensci.org/magick/reference/editing.html" class="external-link">magick::image_read_svg()</a></code> when rendering the SVG body diagrams, and its absence caused failures on systems (e.g. CI runners) where it was not already installed.</li>
+<li>Removed a duplicate <code>grDevices</code> entry from <code>DESCRIPTION</code> Imports.</li>
 <li>Added a <code>tests/testthat</code> suite covering <code><a href="../reference/diagram_colours.html">diagram_colours()</a></code>, <code><a href="../reference/test_colour.html">test_colour()</a></code>, and <code><a href="../reference/injury_heatmap.html">injury_heatmap()</a></code>.</li>
 <li>
 <code><a href="../reference/injury_heatmap.html">injury_heatmap()</a></code> no longer calls <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> on its result before returning it, which previously caused the plot to render twice in R Markdown/Quarto documents when the call was left unassigned.</li>
@@ -50,7 +60,9 @@
 <code><a href="../reference/test_colour.html">test_colour()</a></code> now restores the caller’s <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphics::par()</a></code> settings on exit instead of permanently changing the plotting layout (<code>mfrow</code>).</li>
 <li>Fixed a documentation typo in <code><a href="../reference/test_colour.html">test_colour()</a></code> (“coloublind” -&gt; “colourblind”).</li>
 </ul></div>
-  </main></div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

@@ -134,8 +134,8 @@
 </h3>
 <p>This package expects data to be provided in a data frame, with columns in the following order:</p>
 <ul>
-<li>Region.area</li>
-<li>Subcategory</li>
+<li>region_area</li>
+<li>subcategory</li>
 <li>Sport column containing injury frequencies</li>
 </ul>
 <div class="section level4">
@@ -143,9 +143,9 @@
 </h4>
 <table class="table">
 <thead><tr>
-<th>Region.area</th>
-<th>Subcategory</th>
-<th>Sport_1</th>
+<th>region_area</th>
+<th>subcategory</th>
+<th>sport1</th>
 </tr></thead>
 <tbody>
 <tr>
@@ -179,7 +179,7 @@
 <p><strong>1. Create a template CSV</strong> with all 18 recognised body subcategories and one empty column per sport:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/create_injury_template.html">create_injury_template</a></span><span class="op">(</span><span class="st">"injuries.csv"</span>, sports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"boxing"</span>, <span class="st">"judo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><strong>2. Fill in the file</strong> in your favourite spreadsheet editor, entering the injury frequencies and the <code>Region.area</code> grouping for each row.</p>
+<p><strong>2. Fill in the file</strong> in your favourite spreadsheet editor, entering the injury frequencies and the <code>region_area</code> grouping for each row.</p>
 <p><strong>3. Read the file back in.</strong> <code><a href="reference/read_injury_data.html">read_injury_data()</a></code> checks that the required columns are present, that at least one sport column exists, and that sport values are numeric (with a warning for values that fail to parse):</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_injury_data.html">read_injury_data</a></span><span class="op">(</span><span class="st">"injuries.csv"</span><span class="op">)</span></span></code></pre></div>
@@ -195,14 +195,14 @@
 </h4>
 <p>Start by creating a data frame:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Subcategory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Head"</span>,<span class="st">"Neck"</span>,<span class="st">"Shoulder"</span>,<span class="st">"Chest"</span>,<span class="st">"Upper Arm"</span>,<span class="st">"Elbow"</span>,</span>
+<code class="sourceCode R"><span><span class="va">subcategory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Head"</span>,<span class="st">"Neck"</span>,<span class="st">"Shoulder"</span>,<span class="st">"Chest"</span>,<span class="st">"Upper Arm"</span>,<span class="st">"Elbow"</span>,</span>
 <span>                 <span class="st">"Abdomen"</span>,<span class="st">"Forearm"</span>,<span class="st">"Hip Groin"</span>,<span class="st">"Wrist"</span>,<span class="st">"Hand"</span>,</span>
 <span>                 <span class="st">"Thigh"</span>,<span class="st">"Knee"</span>,<span class="st">"Lower Leg"</span>,<span class="st">"Ankle"</span>,<span class="st">"Foot"</span>,<span class="st">"Thoracic Spine"</span>,<span class="st">"Lumbosacral"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">Region.area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Example"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Subcategory</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">region_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Example"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">subcategory</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">boxing</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">5</span>, <span class="fl">18</span>, <span class="fl">12</span>, <span class="fl">20</span>, <span class="fl">6</span>, <span class="fl">10</span>, <span class="fl">14</span>, <span class="fl">9</span>, <span class="fl">9</span>, <span class="fl">11</span>, <span class="fl">3</span>, <span class="fl">16</span>, <span class="fl">13</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">18</span>, <span class="fl">22</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">Region.area</span>, <span class="va">Subcategory</span>, <span class="va">boxing</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">region_area</span>, <span class="va">subcategory</span>, <span class="va">boxing</span><span class="op">)</span></span></code></pre></div>
 <p>Then run <code>injury_heatmap(injury_data, selected_sport, view_choice)</code> where:</p>
 <ul>
 <li>
