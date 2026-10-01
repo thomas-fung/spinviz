@@ -120,6 +120,10 @@
 <li>
 <code><a href="reference/injury_heatmap.html">injury_heatmap()</a></code>: render injury heatmaps on body SVG diagrams</li>
 <li>
+<code><a href="reference/create_injury_template.html">create_injury_template()</a></code>: write a template CSV in the expected data format</li>
+<li>
+<code><a href="reference/read_injury_data.html">read_injury_data()</a></code>: read and validate an injury-data CSV file</li>
+<li>
 <code><a href="reference/diagram_colours.html">diagram_colours()</a></code>: return colours from supported palette names</li>
 <li>
 <code><a href="reference/test_colour.html">test_colour()</a></code>: visualise palettes (named or custom)</li>
@@ -168,13 +172,28 @@
 </div>
 </div>
 <div class="section level3">
+<h3 id="importing-data-from-a-csv-file">Importing Data from a CSV File<a class="anchor" aria-label="anchor" href="#importing-data-from-a-csv-file"></a>
+</h3>
+<p>If your injury data lives in a CSV file, the package provides helpers for the full workflow: create a template, fill it in, read it back, and plot.</p>
+<p><strong>1. Create a template CSV</strong> with all 18 recognised body subcategories and one empty column per sport:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/create_injury_template.html">create_injury_template</a></span><span class="op">(</span><span class="st">"injuries.csv"</span>, sports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"boxing"</span>, <span class="st">"judo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><strong>2. Fill in the file</strong> in your favourite spreadsheet editor, entering the injury frequencies and the <code>Region.area</code> grouping for each row.</p>
+<p><strong>3. Read the file back in.</strong> <code><a href="reference/read_injury_data.html">read_injury_data()</a></code> checks that the required columns are present, that at least one sport column exists, and that sport values are numeric (with a warning for values that fail to parse):</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_injury_data.html">read_injury_data</a></span><span class="op">(</span><span class="st">"injuries.csv"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>4. Plot as usual:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/injury_heatmap.html">injury_heatmap</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, <span class="st">"front"</span>, sex <span class="op">=</span> <span class="st">"male"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="example-code">Example Code<a class="anchor" aria-label="anchor" href="#example-code"></a>
 </h3>
 <div class="section level4">
 <h4 id="heatmap-example">Heatmap Example<a class="anchor" aria-label="anchor" href="#heatmap-example"></a>
 </h4>
 <p>Start by creating a data frame:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Subcategory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Head"</span>,<span class="st">"Neck"</span>,<span class="st">"Shoulder"</span>,<span class="st">"Chest"</span>,<span class="st">"Upper Arm"</span>,<span class="st">"Elbow"</span>,</span>
 <span>                 <span class="st">"Abdomen"</span>,<span class="st">"Forearm"</span>,<span class="st">"Hip Groin"</span>,<span class="st">"Wrist"</span>,<span class="st">"Hand"</span>,</span>
 <span>                 <span class="st">"Thigh"</span>,<span class="st">"Knee"</span>,<span class="st">"Lower Leg"</span>,<span class="st">"Ankle"</span>,<span class="st">"Foot"</span>,<span class="st">"Thoracic Spine"</span>,<span class="st">"Lumbosacral"</span><span class="op">)</span></span>
@@ -193,7 +212,7 @@
 <code>view_choice</code>: the view of the diagram. One of: <code>"front"</code>, <code>"back"</code>, <code>"both"</code>
 </li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/injury_heatmap.html">injury_heatmap</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, <span class="st">"front"</span>, sex <span class="op">=</span> <span class="st">"male"</span>, show_scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <details><summary><b><code>Example Code Run</code></b>
 </summary><img src="reference/figures/injury-heatmap-front.png" height="600"></details><p>Run <code><a href="reference/injury_heatmap.html">?injury_heatmap</a></code> for more detail.</p>
