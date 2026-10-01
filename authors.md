@@ -4,22 +4,22 @@
 
 - **Bianca Nicole Casimiro**. Author, maintainer.
 
-- **Reidar Lystad**. Author.
-
 - **Thomas Fung**. Author.
+
+- **Reidar Lystad**. Author.
 
 ## Citation
 
 Source:
 [`DESCRIPTION`](https://github.com/bnqcasimiro/spinviz/blob/main/DESCRIPTION)
 
-Casimiro B, Lystad R, Fung T (2026). *spinviz: Visualise Sports Injuries
+Casimiro B, Fung T, Lystad R (2026). *spinviz: Visualise Sports Injuries
 With Anatomical Heatmaps*. R package version 0.0.1.0000,
 <https://github.com/bnqcasimiro/spinviz>.
 
     @Manual{,
       title = {spinviz: Visualise Sports Injuries With Anatomical Heatmaps},
-      author = {Bianca Nicole Casimiro and Reidar Lystad and Thomas Fung},
+      author = {Bianca Nicole Casimiro and Thomas Fung and Reidar Lystad},
       year = {2026},
       note = {R package version 0.0.1.0000},
       url = {https://github.com/bnqcasimiro/spinviz},
