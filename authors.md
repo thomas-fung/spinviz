@@ -8,6 +8,28 @@
 
 - **Reidar Lystad**. Author.
 
+- **Alexander Brinkman**. Contributor.
+
+- **Alexandra Dooley**. Contributor.
+
+- **Andisheh Saffarian**. Contributor.
+
+- **Brice Thu**. Contributor.
+
+- **Utsav Chadha**. Contributor.
+
+- **Zoe Remo**. Contributor.
+
+- **Brayden Smith**. Contributor.
+
+- **Govardhan Bharadwaj**. Contributor.
+
+- **Katja Amet**. Contributor.
+
+- **Kyle Mcnicholas**. Contributor.
+
+- **Zachary Carr**. Contributor.
+
 ## Citation
 
 Source:
