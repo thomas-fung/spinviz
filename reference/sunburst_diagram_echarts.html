@@ -101,7 +101,11 @@ is not important:</p>
 <p>Rather than typing out the Tissue/Pathology columns yourself, you can
 start from the built-in <a href="injury_categories.html">injury_categories</a> taxonomy (which already has
 columns 1 and 2 filled in with the standard classification) and just add
-your own injury counts as column 3. See <code><a href="sunburst_diagram_default.html">sunburst_diagram_default()</a></code></p></dd>
+your own injury counts as column 3. See <code><a href="sunburst_diagram_default.html">sunburst_diagram_default()</a></code>.</p>
+<p>If your data lives in a CSV file, <code><a href="create_sunburst_template.html">create_sunburst_template()</a></code> writes a
+template pre-filled with the <a href="injury_categories.html">injury_categories</a> taxonomy, and
+<code><a href="read_sunburst_data.html">read_sunburst_data()</a></code> reads a completed file back in, validating the
+column structure and category labels.</p></dd>
 
 
 <dt id="arg-column-name">column_name<a class="anchor" aria-label="anchor" href="#arg-column-name"></a></dt>
@@ -200,7 +204,8 @@ themselves still render and are still hoverable via tooltip. If <code>TRUE</code
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="save_diagram.html">save_diagram()</a></code> to export this chart directly
-to a specific file type at a chosen size.</p></div>
+to a specific file type at a chosen size; <code><a href="create_sunburst_template.html">create_sunburst_template()</a></code>
+and <code><a href="read_sunburst_data.html">read_sunburst_data()</a></code> for the CSV template workflow.</p></div>
     </div>
 
     <div class="section level2">

@@ -49,6 +49,8 @@
 <li>
 <code><a href="../reference/heatmap_diagram.html">heatmap_diagram()</a></code> now displays an “Unspecified” row, if present in the data, as a label below the diagram (it has no body region to colour).</li>
 <li>New <code><a href="../reference/save_diagram.html">save_diagram()</a></code> exports heatmaps (via <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave()</a></code>) and sunbursts (via chromote screenshots/PDF) with the correct width:height ratio derived automatically from metadata recorded on the plot object.</li>
+<li>New <code><a href="../reference/create_sunburst_template.html">create_sunburst_template()</a></code> writes a template CSV pre-filled with the 25-row <code>injury_categories</code> tissue/pathology taxonomy and one empty column per requested sport, ready to be filled in with injury frequencies.</li>
+<li>New <code><a href="../reference/read_sunburst_data.html">read_sunburst_data()</a></code> reads and validates such a CSV, checking for the required <code>tissue</code>/<code>pathology</code> columns and at least one sport column, warning on unrecognised (possibly misspelled) tissue/pathology values, and carrying blank <code>tissue</code> cells down from the row above so compact hand-edited files work.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-0-1-0000">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-0-1-0000"></a></h3>

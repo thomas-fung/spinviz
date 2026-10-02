@@ -122,9 +122,12 @@ The available functions in this package are:
   tissue/pathology taxonomies
 - [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md):
   export either diagram type to file at the correct aspect ratio
-- [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md):
-  write a template CSV in the expected data format
-- [`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md):
+- [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md),
+  [`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md):
+  write a template CSV in the expected data format (heatmap and sunburst
+  respectively)
+- [`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md),
+  [`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md):
   read and validate an injury-data CSV file
 - [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md):
   return colours from supported palette names
@@ -194,6 +197,21 @@ df <- read_injury_data("injuries.csv")
 ``` r
 
 heatmap_diagram(df, "boxing", "front", sex = "male")
+```
+
+The same workflow exists for the sunburst’s tissue/pathology format:
+[`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md)
+writes a CSV pre-filled with the 25-row `injury_categories` taxonomy
+(`tissue` and `pathology` columns), and
+[`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md)
+validates it, including filling blank `tissue` cells down from the row
+above so compact hand-edited files work:
+
+``` r
+
+create_sunburst_template("tissue_injuries.csv", sports = c("boxing", "judo"))
+df <- read_sunburst_data("tissue_injuries.csv")
+sunburst_diagram_echarts(df, "boxing")
 ```
 
 ### Example Code

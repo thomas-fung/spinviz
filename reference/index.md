@@ -6,6 +6,8 @@
   : Standard body region/body area injury taxonomy
 - [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md)
   : Create a template CSV file for injury data
+- [`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md)
+  : Create a template CSV file for sunburst injury data
 - [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md)
   : Available colours in package
 - [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
@@ -16,6 +18,8 @@
   : Standard tissue/pathology injury taxonomy
 - [`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md)
   : Read and validate injury data from a CSV file
+- [`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md)
+  : Read and validate sunburst injury data from a CSV file
 - [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
   : Save a spinviz diagram to file
 - [`spinviz-package`](https://thomas-fung.github.io/spinviz/reference/spinviz.md)

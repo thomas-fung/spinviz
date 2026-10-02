@@ -64,7 +64,16 @@ sunburst_diagram_echarts(
   taxonomy (which already has columns 1 and 2 filled in with the
   standard classification) and just add your own injury counts as
   column 3. See
-  [`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md)
+  [`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md).
+
+  If your data lives in a CSV file,
+  [`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md)
+  writes a template pre-filled with the
+  [injury_categories](https://thomas-fung.github.io/spinviz/reference/injury_categories.md)
+  taxonomy, and
+  [`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md)
+  reads a completed file back in, validating the column structure and
+  category labels.
 
 - column_name:
 
@@ -162,7 +171,11 @@ An echarts4r htmlwidget.
 ## See also
 
 [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
-to export this chart directly to a specific file type at a chosen size.
+to export this chart directly to a specific file type at a chosen size;
+[`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md)
+and
+[`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md)
+for the CSV template workflow.
 
 ## Examples
 
