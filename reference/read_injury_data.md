@@ -3,7 +3,7 @@
 Reads a CSV file (e.g. one created with
 [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md)
 and filled in) and checks that it has the structure
-[`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md)
+[`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
 expects: `region_area` and `subcategory` columns plus at least one sport
 column of injury frequencies.
 
@@ -39,19 +39,19 @@ read_injury_data(path)
 #> 1         <NA>           Head     NA
 #> 2         <NA>           Neck     NA
 #> 3         <NA>       Shoulder     NA
-#> 4         <NA>          Chest     NA
-#> 5         <NA>      Upper Arm     NA
-#> 6         <NA>          Elbow     NA
-#> 7         <NA>        Abdomen     NA
-#> 8         <NA>        Forearm     NA
-#> 9         <NA>      Hip Groin     NA
-#> 10        <NA>          Wrist     NA
-#> 11        <NA>           Hand     NA
-#> 12        <NA>          Thigh     NA
-#> 13        <NA>           Knee     NA
-#> 14        <NA>      Lower Leg     NA
-#> 15        <NA>          Ankle     NA
-#> 16        <NA>           Foot     NA
-#> 17        <NA> Thoracic Spine     NA
-#> 18        <NA>    Lumbosacral     NA
+#> 4         <NA>      Upper Arm     NA
+#> 5         <NA>          Elbow     NA
+#> 6         <NA>        Forearm     NA
+#> 7         <NA>          Wrist     NA
+#> 8         <NA>           Hand     NA
+#> 9         <NA>          Chest     NA
+#> 10        <NA> Thoracic Spine     NA
+#> 11        <NA>    Lumbosacral     NA
+#> 12        <NA>        Abdomen     NA
+#> 13        <NA>      Hip Groin     NA
+#> 14        <NA>          Thigh     NA
+#> 15        <NA>           Knee     NA
+#> 16        <NA>      Lower Leg     NA
+#> 17        <NA>          Ankle     NA
+#> 18        <NA>           Foot     NA
 ```

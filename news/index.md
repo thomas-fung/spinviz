@@ -10,16 +10,79 @@
   [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md),
   [`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md),
   and
-  [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md).
+  [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md).
   Existing CSV files using the old names must be updated;
   [`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md)
   now errors on the old names with a hint explaining the rename.
+- `injury_heatmap()` has been renamed to
+  [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md).
 - Example sport columns in the README and template now use lowercase
   names (e.g. `sport1` instead of `Sport_1`) for consistency. Sport
   column names remain free-form.
 
+### New features
+
+- New
+  [`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md)
+  renders an interactive tissue/pathology sunburst diagram using
+  echarts4r.
+- New built-in taxonomies: `body_categories` (19-row
+  region_area/subcategory, used by the heatmap) and `injury_categories`
+  (25-row tissue/pathology, used by the sunburst), each with no counts
+  attached, ready to combine with your own counts.
+- New
+  [`heatmap_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram_default.md)
+  and
+  [`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md)
+  wrappers build a diagram from just a vector of counts matched by row
+  position to the corresponding built-in taxonomy.
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
+  now displays an “Unspecified” row, if present in the data, as a label
+  below the diagram (it has no body region to colour).
+- New
+  [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
+  exports heatmaps (via
+  [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html))
+  and sunbursts (via chromote screenshots/PDF) with the correct
+  width:height ratio derived automatically from metadata recorded on the
+  plot object.
+
+### Bug fixes
+
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
+  single-view labels no longer overlap: adjacent labels are now spread
+  to a minimum vertical gap. This also fixed a latent bug where each
+  region’s label was drawn multiple times (once per underlying SVG id,
+  exactly on top of itself); each region now gets a single label.
+
 ### Other changes
 
+- Extended the test suite to cover
+  [`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md),
+  [`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md),
+  and
+  [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
+  (92 tests in total). The chromote-based sunburst export test skips
+  gracefully when no Chromium-based browser is available (e.g. CRAN or
+  minimal CI images).
+- Added `echarts4r`, `htmlwidgets`, and `tools` to Imports, and
+  `chromote` and `base64enc` to Suggests (only needed for sunburst
+  export in
+  [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)).
+- [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
+  now validates a sunburst widget’s recorded size metadata before
+  checking that chromote/base64enc are installed, so the more
+  informative error is always the one reported.
+- In
+  [`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md),
+  the tcltk pop-up `error_messages()` helper was replaced with standard
+  [`stop()`](https://rdrr.io/r/base/stop.html)/[`warning()`](https://rdrr.io/r/base/warning.html),
+  and the `warnings` argument was removed.
+- Updated the README to document the sunburst diagrams, built-in
+  taxonomies, convenience wrappers, and
+  [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md),
+  and refreshed all example figures (heatmaps regenerated with the new
+  code; new sunburst figure exported via chromote).
 - New
   [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md)
   writes a template CSV pre-filled with all recognised body
@@ -41,23 +104,23 @@
   [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md),
   [`test_colour()`](https://thomas-fung.github.io/spinviz/reference/test_colour.md),
   and
-  [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md).
-- [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md)
+  [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md).
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
   no longer calls [`print()`](https://rdrr.io/r/base/print.html) on its
   result before returning it, which previously caused the plot to render
   twice in R Markdown/Quarto documents when the call was left
   unassigned.
-- [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md)
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
   now warns when values in the selected sport column cannot be converted
   to numeric, instead of silently coercing them to `NA`.
-- [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md)’s
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)’s
   documentation for the `palette` argument is now regenerated and no
   longer shows the stale “WIP” placeholder text.
-- [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md)’s
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)’s
   front/back label coordinate tables are now built from a single shared
   lookup (`label_position_lookup()`) instead of two hand-duplicated
   tables, so the views cannot silently drift apart.
-- [`injury_heatmap()`](https://thomas-fung.github.io/spinviz/reference/injury_heatmap.md)’s
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)’s
   combined “both views” label table (`both_label_position_lookup()`) now
   validates its front-only/back-only regions against the same single
   source of truth (`view_exclusive_regions()`) used by the SVG id and
