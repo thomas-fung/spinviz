@@ -31,7 +31,15 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/spinviz.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/importing-csv-data.html">Importing data from a CSV file</a></li>
+    <li><a class="dropdown-item" href="articles/customisation.html">Customising and saving diagrams</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -47,13 +55,13 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="spinviz-">spinviz <img src="reference/figures/spinviz_logo.png" align="right" height="110"><a class="anchor" aria-label="anchor" href="#spinviz-"></a>
+<div class="page-header"><h1 id="spinviz-">spinviz <img src="reference/figures/spinviz_logo.png" alt="spinviz logo" align="right" height="110"><a class="anchor" aria-label="anchor" href="#spinviz-"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>The <code>spinviz</code> packages provides tools for visualising sporting injury frequencies as a <strong>heatmap projected onto human-body SVG diagrams</strong> in <code>R</code>.</p>
-<p>The main function, <code><a href="reference/heatmap_diagram.html">heatmap_diagram()</a></code>, colours anatomical regions by injury frequency and can render <strong>front</strong>, <strong>back</strong>, or <strong>both</strong> views, using <strong>male</strong> or <strong>female</strong> body templates.</p>
-<p>The package also produces interactive <strong>sunburst diagrams</strong> of injury tissue/pathology classifications via <code><a href="reference/sunburst_diagram_echarts.html">sunburst_diagram_echarts()</a></code>, built-in category taxonomies (<code>body_categories</code>, <code>injury_categories</code>) with one-call convenience wrappers (<code><a href="reference/heatmap_diagram_default.html">heatmap_diagram_default()</a></code>, <code><a href="reference/sunburst_diagram_default.html">sunburst_diagram_default()</a></code>), and <code><a href="reference/save_diagram.html">save_diagram()</a></code> for exporting either diagram type to file at the correct aspect ratio.</p>
+<p>The <code>spinviz</code> package provides tools for visualising sporting injury frequencies as a <strong>heatmap projected onto human-body SVG diagrams</strong> in <code>R</code>, and interactive <strong>sunburst diagrams</strong> of injury tissue/pathology classifications.</p>
+<p>The main function, <code><a href="reference/heatmap_diagram.html">heatmap_diagram()</a></code>, colours anatomical regions by injury frequency and can render <strong>front</strong>, <strong>back</strong>, or <strong>both</strong> views, using <strong>male</strong> or <strong>female</strong> body templates. <code><a href="reference/sunburst_diagram_echarts.html">sunburst_diagram_echarts()</a></code> renders tissue types on an inner ring and pathologies on an outer ring. Built-in taxonomies (<code>body_categories</code>, <code>injury_categories</code>), one-call wrappers, and <code><a href="reference/save_diagram.html">save_diagram()</a></code> for correct-aspect-ratio export are also included.</p>
+<p>Full documentation, tutorials, and a function reference live on the <a href="https://thomas-fung.github.io/spinviz/">pkgdown site</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -63,9 +71,11 @@
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"bnqcasimiro/spinviz"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+<h2 id="quick-examples">Quick examples<a class="anchor" aria-label="anchor" href="#quick-examples"></a>
 </h2>
 <p><strong>Heatmap diagram</strong></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/heatmap_diagram.html">heatmap_diagram</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, <span class="st">"front"</span>, sex <span class="op">=</span> <span class="st">"male"</span>, show_scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <details><summary><b><code>Example Diagrams</code></b>
 </summary><table class="table">
 <colgroup>
@@ -79,277 +89,40 @@
 <th>Both Views (Male)</th>
 </tr></thead>
 <tbody><tr>
-<td><img src="reference/figures/injury-heatmap-front.png" height="300"></td>
-<td><img src="reference/figures/injury-heatmap-back.png" height="300"></td>
-<td><img src="reference/figures/injury-heatmap-both.png" height="300"></td>
+<td><img src="reference/figures/injury-heatmap-front.png" height="300" alt="Injury heatmap, front view on male template"></td>
+<td><img src="reference/figures/injury-heatmap-back.png" height="300" alt="Injury heatmap, back view on male template"></td>
+<td><img src="reference/figures/injury-heatmap-both.png" height="300" alt="Injury heatmap, both views on male template"></td>
 </tr></tbody>
 </table></details><p><strong>Sunburst diagram</strong></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/sunburst_diagram_echarts.html">sunburst_diagram_echarts</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, plot_title <span class="op">=</span> <span class="st">"Boxing Injuries"</span><span class="op">)</span></span></code></pre></div>
 <details><summary><b><code>Example Diagram</code></b>
 </summary><table class="table">
+<colgroup><col width="100%"></colgroup>
 <thead><tr>
 <th>Tissue/Pathology Sunburst</th>
 </tr></thead>
 <tbody><tr>
-<td><img src="reference/figures/sunburst-example.png" height="400"></td>
+<td><img src="reference/figures/sunburst-example.png" height="400" alt="Sunburst diagram of tissue types and pathologies"></td>
 </tr></tbody>
 </table></details>
 </div>
 <div class="section level2">
-<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+<h2 id="learn-more">Learn more<a class="anchor" aria-label="anchor" href="#learn-more"></a>
 </h2>
-<div class="section level3">
-<h3 id="injury-heatmap">Injury Heatmap<a class="anchor" aria-label="anchor" href="#injury-heatmap"></a>
-</h3>
-<p>The heatmap uses <strong>ggplot2</strong> to display a body diagram with regions coloured by injury frequency.</p>
-<p>Available options:</p>
-<ul>
-<li>View: <code>"front"</code>, <code>"back"</code>, or <code>"both"</code>
-</li>
-<li>Diagram sex: <code>"male"</code> or <code>"female"</code>
-</li>
-<li>Opacity control</li>
-<li>Optional labels (region names) and/or values</li>
-<li>Optional legend scale</li>
-<li>Custom palettes:
-<ul>
-<li>Named palettes supported by <code><a href="reference/diagram_colours.html">diagram_colours()</a></code> (viridis or HCL palettes)</li>
-<li>Or a custom vector of hex colours</li>
-</ul>
-</li>
-<li>Rows with an <code>"Unspecified"</code> subcategory are shown as a label below the diagram (they have no body region to colour)</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="injury-sunburst">Injury Sunburst<a class="anchor" aria-label="anchor" href="#injury-sunburst"></a>
-</h3>
-<p>The sunburst uses <strong>echarts4r</strong> to display an interactive two-ring diagram: tissue types on the inner ring, pathologies on the outer ring.</p>
-<p>Available options:</p>
-<ul>
-<li>Colour per tissue type, with pathology slices automatically lightened</li>
-<li>Optional exclusion of “Unspecified”/“Non-specific” tissue rows</li>
-<li>
-<code>depth = 1</code> to show only the tissue-level ring</li>
-<li>Label/leader-line, radius, font and title tuning</li>
-<li>Custom palettes as above</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="convenience-wrappers-and-taxonomies">Convenience Wrappers and Taxonomies<a class="anchor" aria-label="anchor" href="#convenience-wrappers-and-taxonomies"></a>
-</h3>
-<p>If you use the package’s standard classifications, you don’t need to retype them:</p>
 <ul>
 <li>
-<code>body_categories</code>: the 19-row <code>region_area</code>/<code>subcategory</code> taxonomy used by the heatmap</li>
+<a href="https://thomas-fung.github.io/spinviz/articles/spinviz.html">Get started</a> — data format and worked examples</li>
 <li>
-<code>injury_categories</code>: the 25-row <code>tissue</code>/<code>pathology</code> taxonomy used by the sunburst</li>
+<a href="https://thomas-fung.github.io/spinviz/articles/importing-csv-data.html">Importing data from a CSV file</a> — template-based CSV workflow</li>
 <li>
-<code>heatmap_diagram_default(counts, view_choice)</code>: plot from just a vector of counts (matched by row position to <code>body_categories</code>)</li>
-<li>
-<code>sunburst_diagram_default(counts)</code>: same idea for the sunburst</li>
+<a href="https://thomas-fung.github.io/spinviz/articles/customisation.html">Customising and saving diagrams</a> — palettes, display options, and file export</li>
+<li><a href="https://thomas-fung.github.io/spinviz/reference/">Function reference</a></li>
 </ul>
-</div>
-<div class="section level3">
-<h3 id="saving-diagrams">Saving Diagrams<a class="anchor" aria-label="anchor" href="#saving-diagrams"></a>
-</h3>
-<p><code>save_diagram(plot, file, width = ...)</code> detects whether <code>plot</code> is a heatmap or a sunburst and applies the matching export logic, deriving the other dimension from the correct width:height ratio automatically. Heatmaps are saved via <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave()</a></code> (PNG, PDF, SVG, JPG, …); sunbursts via a headless Chromium browser through the optional <code>chromote</code> package (PNG, JPG, PDF).</p>
-</div>
 </div>
 <div class="section level2">
-<h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<h2 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
 </h2>
-<p>The available functions in this package are:</p>
-<ul>
-<li>
-<code><a href="reference/heatmap_diagram.html">heatmap_diagram()</a></code>: render injury heatmaps on body SVG diagrams</li>
-<li>
-<code><a href="reference/sunburst_diagram_echarts.html">sunburst_diagram_echarts()</a></code>: render interactive tissue/pathology sunburst diagrams</li>
-<li>
-<code><a href="reference/heatmap_diagram_default.html">heatmap_diagram_default()</a></code>, <code><a href="reference/sunburst_diagram_default.html">sunburst_diagram_default()</a></code>: one-call wrappers using the built-in taxonomies</li>
-<li>
-<code>body_categories</code>, <code>injury_categories</code>: built-in region and tissue/pathology taxonomies</li>
-<li>
-<code><a href="reference/save_diagram.html">save_diagram()</a></code>: export either diagram type to file at the correct aspect ratio</li>
-<li>
-<code><a href="reference/create_injury_template.html">create_injury_template()</a></code>, <code><a href="reference/create_sunburst_template.html">create_sunburst_template()</a></code>: write a template CSV in the expected data format (heatmap and sunburst respectively)</li>
-<li>
-<code><a href="reference/read_injury_data.html">read_injury_data()</a></code>, <code><a href="reference/read_sunburst_data.html">read_sunburst_data()</a></code>: read and validate an injury-data CSV file</li>
-<li>
-<code><a href="reference/diagram_colours.html">diagram_colours()</a></code>: return colours from supported palette names</li>
-<li>
-<code><a href="reference/test_colour.html">test_colour()</a></code>: visualise palettes (named or custom)</li>
-</ul>
-<div class="section level3">
-<h3 id="data-format">Data Format<a class="anchor" aria-label="anchor" href="#data-format"></a>
-</h3>
-<p>This package expects data to be provided in a data frame, with columns in the following order:</p>
-<ul>
-<li>region_area</li>
-<li>subcategory</li>
-<li>Sport column containing injury frequencies</li>
-</ul>
-<div class="section level4">
-<h4 id="heatmap-diagram-body-injuries">Heatmap Diagram (Body Injuries)<a class="anchor" aria-label="anchor" href="#heatmap-diagram-body-injuries"></a>
-</h4>
-<table class="table">
-<thead><tr>
-<th>region_area</th>
-<th>subcategory</th>
-<th>sport1</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Head and Neck</td>
-<td>Head</td>
-<td>10</td>
-</tr>
-<tr>
-<td>Head and Neck</td>
-<td>Neck</td>
-<td>20</td>
-</tr>
-<tr>
-<td>Upper Limb</td>
-<td>Shoulder</td>
-<td>5</td>
-</tr>
-<tr>
-<td>Upper Limb</td>
-<td>Upper Arm</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="sunburst-diagram-tissuepathology">Sunburst Diagram (Tissue/Pathology)<a class="anchor" aria-label="anchor" href="#sunburst-diagram-tissuepathology"></a>
-</h4>
-<p>For the sunburst, the first two columns are <code>tissue</code> and <code>pathology</code>, followed by one or more sport columns:</p>
-<table class="table">
-<thead><tr>
-<th>tissue</th>
-<th>pathology</th>
-<th>sport1</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Muscle / Tendon</td>
-<td>Muscle strain</td>
-<td>20</td>
-</tr>
-<tr>
-<td>Muscle / Tendon</td>
-<td>Tendon rupture</td>
-<td>10</td>
-</tr>
-<tr>
-<td>Bone</td>
-<td>Fracture</td>
-<td>16</td>
-</tr>
-<tr>
-<td>Bone</td>
-<td>Bone contusion</td>
-<td>6</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="section level3">
-<h3 id="importing-data-from-a-csv-file">Importing Data from a CSV File<a class="anchor" aria-label="anchor" href="#importing-data-from-a-csv-file"></a>
-</h3>
-<p>If your injury data lives in a CSV file, the package provides helpers for the full workflow: create a template, fill it in, read it back, and plot.</p>
-<p><strong>1. Create a template CSV</strong> with all 18 recognised body subcategories and one empty column per sport:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/create_injury_template.html">create_injury_template</a></span><span class="op">(</span><span class="st">"injuries.csv"</span>, sports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"boxing"</span>, <span class="st">"judo"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><strong>2. Fill in the file</strong> in your favourite spreadsheet editor, entering the injury frequencies and the <code>region_area</code> grouping for each row.</p>
-<p><strong>3. Read the file back in.</strong> <code><a href="reference/read_injury_data.html">read_injury_data()</a></code> checks that the required columns are present, that at least one sport column exists, and that sport values are numeric (with a warning for values that fail to parse):</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_injury_data.html">read_injury_data</a></span><span class="op">(</span><span class="st">"injuries.csv"</span><span class="op">)</span></span></code></pre></div>
-<p><strong>4. Plot as usual:</strong></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/heatmap_diagram.html">heatmap_diagram</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, <span class="st">"front"</span>, sex <span class="op">=</span> <span class="st">"male"</span><span class="op">)</span></span></code></pre></div>
-<p>The same workflow exists for the sunburst’s tissue/pathology format: <code><a href="reference/create_sunburst_template.html">create_sunburst_template()</a></code> writes a CSV pre-filled with the 25-row <code>injury_categories</code> taxonomy (<code>tissue</code> and <code>pathology</code> columns), and <code><a href="reference/read_sunburst_data.html">read_sunburst_data()</a></code> validates it, including filling blank <code>tissue</code> cells down from the row above so compact hand-edited files work:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/create_sunburst_template.html">create_sunburst_template</a></span><span class="op">(</span><span class="st">"tissue_injuries.csv"</span>, sports <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"boxing"</span>, <span class="st">"judo"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_sunburst_data.html">read_sunburst_data</a></span><span class="op">(</span><span class="st">"tissue_injuries.csv"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/sunburst_diagram_echarts.html">sunburst_diagram_echarts</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="example-code">Example Code<a class="anchor" aria-label="anchor" href="#example-code"></a>
-</h3>
-<div class="section level4">
-<h4 id="heatmap-example">Heatmap Example<a class="anchor" aria-label="anchor" href="#heatmap-example"></a>
-</h4>
-<p>Start by creating a data frame:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">subcategory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Head"</span>,<span class="st">"Neck"</span>,<span class="st">"Shoulder"</span>,<span class="st">"Chest"</span>,<span class="st">"Upper Arm"</span>,<span class="st">"Elbow"</span>,</span>
-<span>                 <span class="st">"Abdomen"</span>,<span class="st">"Forearm"</span>,<span class="st">"Hip Groin"</span>,<span class="st">"Wrist"</span>,<span class="st">"Hand"</span>,</span>
-<span>                 <span class="st">"Thigh"</span>,<span class="st">"Knee"</span>,<span class="st">"Lower Leg"</span>,<span class="st">"Ankle"</span>,<span class="st">"Foot"</span>,<span class="st">"Thoracic Spine"</span>,<span class="st">"Lumbosacral"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">region_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"Example"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">subcategory</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">boxing</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">5</span>, <span class="fl">18</span>, <span class="fl">12</span>, <span class="fl">20</span>, <span class="fl">6</span>, <span class="fl">10</span>, <span class="fl">14</span>, <span class="fl">9</span>, <span class="fl">9</span>, <span class="fl">11</span>, <span class="fl">3</span>, <span class="fl">16</span>, <span class="fl">13</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">18</span>, <span class="fl">22</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">region_area</span>, <span class="va">subcategory</span>, <span class="va">boxing</span><span class="op">)</span></span></code></pre></div>
-<p>Then run <code>heatmap_diagram(injury_data, selected_sport, view_choice)</code> where:</p>
-<ul>
-<li>
-<code>injury_data</code>: the data to be used, i.e. the data frame above</li>
-<li>
-<code>selected_sport</code>: the column name to use</li>
-<li>
-<code>view_choice</code>: the view of the diagram. One of: <code>"front"</code>, <code>"back"</code>, <code>"both"</code>
-</li>
-</ul>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/heatmap_diagram.html">heatmap_diagram</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, <span class="st">"front"</span>, sex <span class="op">=</span> <span class="st">"male"</span>, show_scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<details><summary><b><code>Example Code Run</code></b>
-</summary><img src="reference/figures/injury-heatmap-front.png" height="600"></details><p>Run <code><a href="reference/heatmap_diagram.html">?heatmap_diagram</a></code> for more detail.</p>
-</div>
-<div class="section level4">
-<h4 id="sunburst-example">Sunburst Example<a class="anchor" aria-label="anchor" href="#sunburst-example"></a>
-</h4>
-<p>The sunburst expects <code>tissue</code> and <code>pathology</code> columns followed by sport column(s). The quickest way to get a correctly-ordered taxonomy is the built-in <code>injury_categories</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">injury_categories</span></span>
-<span><span class="va">df</span><span class="op">$</span><span class="va">boxing</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">10</span>, <span class="fl">31</span>, <span class="fl">18</span>, <span class="fl">16</span>, <span class="fl">16</span>, <span class="fl">20</span>, <span class="fl">20</span>, <span class="fl">27</span>, <span class="fl">46</span>,</span>
-<span>               <span class="fl">67</span>, <span class="fl">31</span>, <span class="fl">54</span>, <span class="fl">20</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">96</span>, <span class="fl">82</span>, <span class="fl">48</span>, <span class="fl">26</span>, <span class="fl">33</span>, <span class="fl">34</span>, <span class="fl">24</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sunburst_diagram_echarts.html">sunburst_diagram_echarts</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, plot_title <span class="op">=</span> <span class="st">"Boxing Injuries"</span><span class="op">)</span></span>
-<span><span class="va">p</span></span></code></pre></div>
-<details><summary><b><code>Example Output</code></b>
-</summary><img src="reference/figures/sunburst-example.png" height="500"></details><p>Or skip the data frame entirely with the wrapper:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/sunburst_diagram_default.html">sunburst_diagram_default</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">boxing</span>, plot_title <span class="op">=</span> <span class="st">"Boxing Injuries"</span><span class="op">)</span></span></code></pre></div>
-<p>Run <code><a href="reference/sunburst_diagram_echarts.html">?sunburst_diagram_echarts</a></code> for more detail.</p>
-</div>
-<div class="section level4">
-<h4 id="saving-diagrams-1">Saving Diagrams<a class="anchor" aria-label="anchor" href="#saving-diagrams-1"></a>
-</h4>
-<p><code><a href="reference/save_diagram.html">save_diagram()</a></code> works with both diagram types and derives the height from the width automatically:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p_heat</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/heatmap_diagram.html">heatmap_diagram</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span>, <span class="st">"front"</span>, sex <span class="op">=</span> <span class="st">"male"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/save_diagram.html">save_diagram</a></span><span class="op">(</span><span class="va">p_heat</span>, file <span class="op">=</span> <span class="st">"heatmap.png"</span>, width <span class="op">=</span> <span class="fl">1600</span>, units <span class="op">=</span> <span class="st">"px"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p_sun</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sunburst_diagram_echarts.html">sunburst_diagram_echarts</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"boxing"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/save_diagram.html">save_diagram</a></span><span class="op">(</span><span class="va">p_sun</span>, file <span class="op">=</span> <span class="st">"sunburst.png"</span>, width <span class="op">=</span> <span class="fl">1200</span><span class="op">)</span>  <span class="co"># requires the chromote package</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="palette-support">Palette Support<a class="anchor" aria-label="anchor" href="#palette-support"></a>
-</h3>
-<p>You can supply palette as:</p>
-<ul>
-<li>A palette name supported by <code><a href="reference/diagram_colours.html">diagram_colours()</a></code> (viridis or HCL), e.g. <code>"magma"</code>, <code>"plasma"</code>, <code>"Reds"</code>
-</li>
-<li>A character vector of hex colours, e.g. <code>c("#FFFFFF", "#FFFF00", "#FF0000")</code>
-</li>
-</ul>
-<p>To preview supported palettes, run <code><a href="reference/diagram_colours.html">?diagram_colours</a></code> and <code><a href="reference/test_colour.html">?test_colour</a></code>.</p>
-</div>
-<div class="section level3">
-<h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
-</h3>
 <p>Key packages used:</p>
 <ul>
 <li>Data wrangling: <code>dplyr</code>, <code>tidyr</code>, <code>rlang</code>, <code>stringr</code>
@@ -367,7 +140,6 @@
 <li>Optional (sunburst file export only): <code>chromote</code>, <code>base64enc</code>
 </li>
 </ul>
-</div>
 </div>
 <div class="section level2">
 <h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>

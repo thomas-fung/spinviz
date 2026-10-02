@@ -1,6 +1,10 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://thomas-fung.github.io/spinviz/404.html</loc></url>
 <url><loc>https://thomas-fung.github.io/spinviz/LICENSE-text.html</loc></url>
+<url><loc>https://thomas-fung.github.io/spinviz/articles/customisation.html</loc></url>
+<url><loc>https://thomas-fung.github.io/spinviz/articles/importing-csv-data.html</loc></url>
+<url><loc>https://thomas-fung.github.io/spinviz/articles/index.html</loc></url>
+<url><loc>https://thomas-fung.github.io/spinviz/articles/spinviz.html</loc></url>
 <url><loc>https://thomas-fung.github.io/spinviz/authors.html</loc></url>
 <url><loc>https://thomas-fung.github.io/spinviz/index.html</loc></url>
 <url><loc>https://thomas-fung.github.io/spinviz/news/index.html</loc></url>

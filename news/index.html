@@ -15,7 +15,13 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/spinviz.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/importing-csv-data.html">Importing data from a CSV file</a></li>
+    <li><a class="dropdown-item" href="../articles/customisation.html">Customising and saving diagrams</a></li>
+  </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -83,6 +89,7 @@
 <li>
 <code><a href="../reference/test_colour.html">test_colour()</a></code> now restores the caller’s <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">graphics::par()</a></code> settings on exit instead of permanently changing the plotting layout (<code>mfrow</code>).</li>
 <li>Fixed a documentation typo in <code><a href="../reference/test_colour.html">test_colour()</a></code> (“coloublind” -&gt; “colourblind”).</li>
+<li>Documentation moved to a pkgdown site (<a href="https://thomas-fung.github.io/spinviz/" class="uri">https://thomas-fung.github.io/spinviz/</a>): a “Get started” vignette with runnable examples, articles on importing CSV data and on customising and saving diagrams, and a grouped function reference. The README is correspondingly slimmer, keeping only installation and quick examples.</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

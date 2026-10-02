@@ -145,3 +145,9 @@
 - Fixed a documentation typo in
   [`test_colour()`](https://thomas-fung.github.io/spinviz/reference/test_colour.md)
   (“coloublind” -\> “colourblind”).
+- Documentation moved to a pkgdown site
+  (<https://thomas-fung.github.io/spinviz/>): a “Get started” vignette
+  with runnable examples, articles on importing CSV data and on
+  customising and saving diagrams, and a grouped function reference. The
+  README is correspondingly slimmer, keeping only installation and quick
+  examples.

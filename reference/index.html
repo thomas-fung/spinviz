@@ -15,7 +15,13 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/spinviz.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/importing-csv-data.html">Importing data from a CSV file</a></li>
+    <li><a class="dropdown-item" href="../articles/customisation.html">Customising and saving diagrams</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -32,7 +38,7 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="package">Package<a class="anchor" aria-label="anchor" href="#package"></a></h2>
 
 
 
@@ -43,12 +49,88 @@
 
       <dl><dt>
 
+          <code><a href="spinviz.html">spinviz-package</a></code> <code><a href="spinviz.html">spinviz</a></code>
+
+        </dt>
+        <dd>spinviz: Injury visualisation tools</dd>
+      </dl></div><div class="section level2">
+      <h2 id="diagrams">Diagrams<a class="anchor" aria-label="anchor" href="#diagrams"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="heatmap_diagram.html">heatmap_diagram()</a></code>
+
+        </dt>
+        <dd>Heat map of Injuries on Human Body</dd>
+
+        <dt>
+
+          <code><a href="sunburst_diagram_echarts.html">sunburst_diagram_echarts()</a></code>
+
+        </dt>
+        <dd>Sunburst diagram</dd>
+
+        <dt>
+
+          <code><a href="save_diagram.html">save_diagram()</a></code>
+
+        </dt>
+        <dd>Save a spinviz diagram to file</dd>
+      </dl></div><div class="section level2">
+      <h2 id="convenience-wrappers-and-taxonomies">Convenience wrappers and taxonomies<a class="anchor" aria-label="anchor" href="#convenience-wrappers-and-taxonomies"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="heatmap_diagram_default.html">heatmap_diagram_default()</a></code>
+
+        </dt>
+        <dd>Heatmap diagram using the built-in body region taxonomy</dd>
+
+        <dt>
+
+          <code><a href="sunburst_diagram_default.html">sunburst_diagram_default()</a></code>
+
+        </dt>
+        <dd>Sunburst diagram using the built-in injury taxonomy</dd>
+
+        <dt>
+
           <code><a href="body_categories.html">body_categories</a></code>
 
         </dt>
         <dd>Standard body region/body area injury taxonomy</dd>
 
         <dt>
+
+          <code><a href="injury_categories.html">injury_categories</a></code>
+
+        </dt>
+        <dd>Standard tissue/pathology injury taxonomy</dd>
+      </dl></div><div class="section level2">
+      <h2 id="importing-data">Importing data<a class="anchor" aria-label="anchor" href="#importing-data"></a></h2>
+
+
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="create_injury_template.html">create_injury_template()</a></code>
 
@@ -64,34 +146,6 @@
 
         <dt>
 
-          <code><a href="diagram_colours.html">diagram_colours()</a></code>
-
-        </dt>
-        <dd>Available colours in package</dd>
-
-        <dt>
-
-          <code><a href="heatmap_diagram.html">heatmap_diagram()</a></code>
-
-        </dt>
-        <dd>Heat map of Injuries on Human Body</dd>
-
-        <dt>
-
-          <code><a href="heatmap_diagram_default.html">heatmap_diagram_default()</a></code>
-
-        </dt>
-        <dd>Heatmap diagram using the built-in body region taxonomy</dd>
-
-        <dt>
-
-          <code><a href="injury_categories.html">injury_categories</a></code>
-
-        </dt>
-        <dd>Standard tissue/pathology injury taxonomy</dd>
-
-        <dt>
-
           <code><a href="read_injury_data.html">read_injury_data()</a></code>
 
         </dt>
@@ -103,34 +157,22 @@
 
         </dt>
         <dd>Read and validate sunburst injury data from a CSV file</dd>
+      </dl></div><div class="section level2">
+      <h2 id="palettes">Palettes<a class="anchor" aria-label="anchor" href="#palettes"></a></h2>
 
-        <dt>
 
-          <code><a href="save_diagram.html">save_diagram()</a></code>
 
-        </dt>
-        <dd>Save a spinviz diagram to file</dd>
+      <dl></dl></div><div class="section level2">
 
-        <dt>
 
-          <code><a href="spinviz.html">spinviz-package</a></code> <code><a href="spinviz.html">spinviz</a></code>
 
-        </dt>
-        <dd>spinviz: Injury visualisation tools</dd>
 
-        <dt>
+      <dl><dt>
 
-          <code><a href="sunburst_diagram_default.html">sunburst_diagram_default()</a></code>
+          <code><a href="diagram_colours.html">diagram_colours()</a></code>
 
         </dt>
-        <dd>Sunburst diagram using the built-in injury taxonomy</dd>
-
-        <dt>
-
-          <code><a href="sunburst_diagram_echarts.html">sunburst_diagram_echarts()</a></code>
-
-        </dt>
-        <dd>Sunburst diagram</dd>
+        <dd>Available colours in package</dd>
 
         <dt>
 
@@ -139,7 +181,8 @@
         </dt>
         <dd>Test colour palette(s)</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

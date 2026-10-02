@@ -1,25 +1,24 @@
-# spinviz ![](reference/figures/spinviz_logo.png)
+# spinviz ![spinviz logo](reference/figures/spinviz_logo.png)
 
-The `spinviz` packages provides tools for visualising sporting injury
+The `spinviz` package provides tools for visualising sporting injury
 frequencies as a **heatmap projected onto human-body SVG diagrams** in
-`R`.
+`R`, and interactive **sunburst diagrams** of injury tissue/pathology
+classifications.
 
 The main function,
 [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md),
 colours anatomical regions by injury frequency and can render **front**,
 **back**, or **both** views, using **male** or **female** body
 templates.
-
-The package also produces interactive **sunburst diagrams** of injury
-tissue/pathology classifications via
-[`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md),
-built-in category taxonomies (`body_categories`, `injury_categories`)
-with one-call convenience wrappers
-([`heatmap_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram_default.md),
-[`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md)),
-and
+[`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md)
+renders tissue types on an inner ring and pathologies on an outer ring.
+Built-in taxonomies (`body_categories`, `injury_categories`), one-call
+wrappers, and
 [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
-for exporting either diagram type to file at the correct aspect ratio.
+for correct-aspect-ratio export are also included.
+
+Full documentation, tutorials, and a function reference live on the
+[pkgdown site](https://thomas-fung.github.io/spinviz/).
 
 ## Installation
 
@@ -31,290 +30,48 @@ As this package is not currently on CRAN, install from GitHub:
 pak::pak("bnqcasimiro/spinviz")
 ```
 
-## Examples
+## Quick examples
 
 **Heatmap diagram**
-
-**`Example Diagrams`**
-
-| Front (Male) | Back (Male) | Both Views (Male) |
-|----|----|----|
-| ![](reference/figures/injury-heatmap-front.png) | ![](reference/figures/injury-heatmap-back.png) | ![](reference/figures/injury-heatmap-both.png) |
-
-**Sunburst diagram**
-
-**`Example Diagram`**
-
-| Tissue/Pathology Sunburst                   |
-|---------------------------------------------|
-| ![](reference/figures/sunburst-example.png) |
-
-## Features
-
-### Injury Heatmap
-
-The heatmap uses **ggplot2** to display a body diagram with regions
-coloured by injury frequency.
-
-Available options:
-
-- View: `"front"`, `"back"`, or `"both"`
-- Diagram sex: `"male"` or `"female"`
-- Opacity control
-- Optional labels (region names) and/or values
-- Optional legend scale
-- Custom palettes:
-  - Named palettes supported by
-    [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md)
-    (viridis or HCL palettes)
-  - Or a custom vector of hex colours
-- Rows with an `"Unspecified"` subcategory are shown as a label below
-  the diagram (they have no body region to colour)
-
-### Injury Sunburst
-
-The sunburst uses **echarts4r** to display an interactive two-ring
-diagram: tissue types on the inner ring, pathologies on the outer ring.
-
-Available options:
-
-- Colour per tissue type, with pathology slices automatically lightened
-- Optional exclusion of “Unspecified”/“Non-specific” tissue rows
-- `depth = 1` to show only the tissue-level ring
-- Label/leader-line, radius, font and title tuning
-- Custom palettes as above
-
-### Convenience Wrappers and Taxonomies
-
-If you use the package’s standard classifications, you don’t need to
-retype them:
-
-- `body_categories`: the 19-row `region_area`/`subcategory` taxonomy
-  used by the heatmap
-- `injury_categories`: the 25-row `tissue`/`pathology` taxonomy used by
-  the sunburst
-- `heatmap_diagram_default(counts, view_choice)`: plot from just a
-  vector of counts (matched by row position to `body_categories`)
-- `sunburst_diagram_default(counts)`: same idea for the sunburst
-
-### Saving Diagrams
-
-`save_diagram(plot, file, width = ...)` detects whether `plot` is a
-heatmap or a sunburst and applies the matching export logic, deriving
-the other dimension from the correct width:height ratio automatically.
-Heatmaps are saved via
-[`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html)
-(PNG, PDF, SVG, JPG, …); sunbursts via a headless Chromium browser
-through the optional `chromote` package (PNG, JPG, PDF).
-
-## Getting Started
-
-The available functions in this package are:
-
-- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md):
-  render injury heatmaps on body SVG diagrams
-- [`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md):
-  render interactive tissue/pathology sunburst diagrams
-- [`heatmap_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram_default.md),
-  [`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md):
-  one-call wrappers using the built-in taxonomies
-- `body_categories`, `injury_categories`: built-in region and
-  tissue/pathology taxonomies
-- [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md):
-  export either diagram type to file at the correct aspect ratio
-- [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md),
-  [`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md):
-  write a template CSV in the expected data format (heatmap and sunburst
-  respectively)
-- [`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md),
-  [`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md):
-  read and validate an injury-data CSV file
-- [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md):
-  return colours from supported palette names
-- [`test_colour()`](https://thomas-fung.github.io/spinviz/reference/test_colour.md):
-  visualise palettes (named or custom)
-
-### Data Format
-
-This package expects data to be provided in a data frame, with columns
-in the following order:
-
-- region_area
-- subcategory
-- Sport column containing injury frequencies
-
-#### Heatmap Diagram (Body Injuries)
-
-| region_area   | subcategory | sport1 |
-|---------------|-------------|--------|
-| Head and Neck | Head        | 10     |
-| Head and Neck | Neck        | 20     |
-| Upper Limb    | Shoulder    | 5      |
-| Upper Limb    | Upper Arm   | 8      |
-
-#### Sunburst Diagram (Tissue/Pathology)
-
-For the sunburst, the first two columns are `tissue` and `pathology`,
-followed by one or more sport columns:
-
-| tissue          | pathology      | sport1 |
-|-----------------|----------------|--------|
-| Muscle / Tendon | Muscle strain  | 20     |
-| Muscle / Tendon | Tendon rupture | 10     |
-| Bone            | Fracture       | 16     |
-| Bone            | Bone contusion | 6      |
-
-### Importing Data from a CSV File
-
-If your injury data lives in a CSV file, the package provides helpers
-for the full workflow: create a template, fill it in, read it back, and
-plot.
-
-**1. Create a template CSV** with all 18 recognised body subcategories
-and one empty column per sport:
-
-``` r
-
-create_injury_template("injuries.csv", sports = c("boxing", "judo"))
-```
-
-**2. Fill in the file** in your favourite spreadsheet editor, entering
-the injury frequencies and the `region_area` grouping for each row.
-
-**3. Read the file back in.**
-[`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md)
-checks that the required columns are present, that at least one sport
-column exists, and that sport values are numeric (with a warning for
-values that fail to parse):
-
-``` r
-
-df <- read_injury_data("injuries.csv")
-```
-
-**4. Plot as usual:**
-
-``` r
-
-heatmap_diagram(df, "boxing", "front", sex = "male")
-```
-
-The same workflow exists for the sunburst’s tissue/pathology format:
-[`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md)
-writes a CSV pre-filled with the 25-row `injury_categories` taxonomy
-(`tissue` and `pathology` columns), and
-[`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md)
-validates it, including filling blank `tissue` cells down from the row
-above so compact hand-edited files work:
-
-``` r
-
-create_sunburst_template("tissue_injuries.csv", sports = c("boxing", "judo"))
-df <- read_sunburst_data("tissue_injuries.csv")
-sunburst_diagram_echarts(df, "boxing")
-```
-
-### Example Code
-
-#### Heatmap Example
-
-Start by creating a data frame:
-
-``` r
-
-subcategory <- c("Head","Neck","Shoulder","Chest","Upper Arm","Elbow",
-                 "Abdomen","Forearm","Hip Groin","Wrist","Hand",
-                 "Thigh","Knee","Lower Leg","Ankle","Foot","Thoracic Spine","Lumbosacral")
-
-region_area <- rep("Example", length(subcategory))
-boxing <- c(15, 5, 18, 12, 20, 6, 10, 14, 9, 9, 11, 3, 16, 13, 7, 8, 18, 22)
-
-df <- data.frame(region_area, subcategory, boxing)
-```
-
-Then run `heatmap_diagram(injury_data, selected_sport, view_choice)`
-where:
-
-- `injury_data`: the data to be used, i.e. the data frame above
-- `selected_sport`: the column name to use
-- `view_choice`: the view of the diagram. One of: `"front"`, `"back"`,
-  `"both"`
 
 ``` r
 
 heatmap_diagram(df, "boxing", "front", sex = "male", show_scale = FALSE)
 ```
 
-**`Example Code Run`**
+**`Example Diagrams`**
 
-![](reference/figures/injury-heatmap-front.png)
+| Front (Male) | Back (Male) | Both Views (Male) |
+|----|----|----|
+| ![Injury heatmap, front view on male template](reference/figures/injury-heatmap-front.png) | ![Injury heatmap, back view on male template](reference/figures/injury-heatmap-back.png) | ![Injury heatmap, both views on male template](reference/figures/injury-heatmap-both.png) |
 
-Run
-[`?heatmap_diagram`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
-for more detail.
-
-#### Sunburst Example
-
-The sunburst expects `tissue` and `pathology` columns followed by sport
-column(s). The quickest way to get a correctly-ordered taxonomy is the
-built-in `injury_categories`:
+**Sunburst diagram**
 
 ``` r
 
-df <- injury_categories
-df$boxing <- c(20, 0, 0, 10, 31, 18, 16, 16, 20, 20, 27, 46,
-               67, 31, 54, 20, 27, 30, 96, 82, 48, 26, 33, 34, 24)
-
-p <- sunburst_diagram_echarts(df, "boxing", plot_title = "Boxing Injuries")
-p
+sunburst_diagram_echarts(df, "boxing", plot_title = "Boxing Injuries")
 ```
 
-**`Example Output`**
+**`Example Diagram`**
 
-![](reference/figures/sunburst-example.png)
+| Tissue/Pathology Sunburst |
+|----|
+| ![Sunburst diagram of tissue types and pathologies](reference/figures/sunburst-example.png) |
 
-Or skip the data frame entirely with the wrapper:
+## Learn more
 
-``` r
+- [Get
+  started](https://thomas-fung.github.io/spinviz/articles/spinviz.html)
+  — data format and worked examples
+- [Importing data from a CSV
+  file](https://thomas-fung.github.io/spinviz/articles/importing-csv-data.html)
+  — template-based CSV workflow
+- [Customising and saving
+  diagrams](https://thomas-fung.github.io/spinviz/articles/customisation.html)
+  — palettes, display options, and file export
+- [Function reference](https://thomas-fung.github.io/spinviz/reference/)
 
-sunburst_diagram_default(df$boxing, plot_title = "Boxing Injuries")
-```
-
-Run
-[`?sunburst_diagram_echarts`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md)
-for more detail.
-
-#### Saving Diagrams
-
-[`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
-works with both diagram types and derives the height from the width
-automatically:
-
-``` r
-
-p_heat <- heatmap_diagram(df, "boxing", "front", sex = "male")
-save_diagram(p_heat, file = "heatmap.png", width = 1600, units = "px")
-
-p_sun <- sunburst_diagram_echarts(df, "boxing")
-save_diagram(p_sun, file = "sunburst.png", width = 1200)  # requires the chromote package
-```
-
-### Palette Support
-
-You can supply palette as:
-
-- A palette name supported by
-  [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md)
-  (viridis or HCL), e.g. `"magma"`, `"plasma"`, `"Reds"`
-- A character vector of hex colours,
-  e.g. `c("#FFFFFF", "#FFFF00", "#FF0000")`
-
-To preview supported palettes, run
-[`?diagram_colours`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md)
-and
-[`?test_colour`](https://thomas-fung.github.io/spinviz/reference/test_colour.md).
-
-### Dependencies
+## Dependencies
 
 Key packages used:
 
@@ -339,35 +96,57 @@ provided the groundwork for this package.
 
 # Package index
 
-## All functions
+## Package
 
+- [`spinviz-package`](https://thomas-fung.github.io/spinviz/reference/spinviz.md)
+  [`spinviz`](https://thomas-fung.github.io/spinviz/reference/spinviz.md)
+  : spinviz: Injury visualisation tools
+
+## Diagrams
+
+- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
+  : Heat map of Injuries on Human Body
+- [`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md)
+  : Sunburst diagram
+- [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
+  : Save a spinviz diagram to file
+
+## Convenience wrappers and taxonomies
+
+- [`heatmap_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram_default.md)
+  : Heatmap diagram using the built-in body region taxonomy
+- [`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md)
+  : Sunburst diagram using the built-in injury taxonomy
 - [`body_categories`](https://thomas-fung.github.io/spinviz/reference/body_categories.md)
   : Standard body region/body area injury taxonomy
+- [`injury_categories`](https://thomas-fung.github.io/spinviz/reference/injury_categories.md)
+  : Standard tissue/pathology injury taxonomy
+
+## Importing data
+
 - [`create_injury_template()`](https://thomas-fung.github.io/spinviz/reference/create_injury_template.md)
   : Create a template CSV file for injury data
 - [`create_sunburst_template()`](https://thomas-fung.github.io/spinviz/reference/create_sunburst_template.md)
   : Create a template CSV file for sunburst injury data
-- [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md)
-  : Available colours in package
-- [`heatmap_diagram()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram.md)
-  : Heat map of Injuries on Human Body
-- [`heatmap_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/heatmap_diagram_default.md)
-  : Heatmap diagram using the built-in body region taxonomy
-- [`injury_categories`](https://thomas-fung.github.io/spinviz/reference/injury_categories.md)
-  : Standard tissue/pathology injury taxonomy
 - [`read_injury_data()`](https://thomas-fung.github.io/spinviz/reference/read_injury_data.md)
   : Read and validate injury data from a CSV file
 - [`read_sunburst_data()`](https://thomas-fung.github.io/spinviz/reference/read_sunburst_data.md)
   : Read and validate sunburst injury data from a CSV file
-- [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
-  : Save a spinviz diagram to file
-- [`spinviz-package`](https://thomas-fung.github.io/spinviz/reference/spinviz.md)
-  [`spinviz`](https://thomas-fung.github.io/spinviz/reference/spinviz.md)
-  : spinviz: Injury visualisation tools
-- [`sunburst_diagram_default()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_default.md)
-  : Sunburst diagram using the built-in injury taxonomy
-- [`sunburst_diagram_echarts()`](https://thomas-fung.github.io/spinviz/reference/sunburst_diagram_echarts.md)
-  : Sunburst diagram
+
+## Palettes
+
+- [`diagram_colours()`](https://thomas-fung.github.io/spinviz/reference/diagram_colours.md)
+  : Available colours in package
 - [`test_colour()`](https://thomas-fung.github.io/spinviz/reference/test_colour.md)
   : Test colour palette(s)
 
+# Articles
+
+### All vignettes
+
+- [Customising and saving
+  diagrams](https://thomas-fung.github.io/spinviz/articles/customisation.md):
+- [Importing data from a CSV
+  file](https://thomas-fung.github.io/spinviz/articles/importing-csv-data.md):
+- [Get started with
+  spinviz](https://thomas-fung.github.io/spinviz/articles/spinviz.md):
