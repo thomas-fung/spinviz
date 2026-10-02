@@ -121,7 +121,8 @@ Counts are matched by row position to `body_categories` /
 
 ## Next steps
 
-- `vignette("importing-csv-data", package = "spinviz")` — a
-  template-based CSV workflow
-- `vignette("customisation", package = "spinviz")` — palettes, saving
-  diagrams, and display options
+- [Importing CSV
+  data](https://thomas-fung.github.io/spinviz/articles/importing-csv-data.md)
+  — a template-based CSV workflow
+- [Customisation](https://thomas-fung.github.io/spinviz/articles/customisation.md)
+  — palettes, saving diagrams, and display options
