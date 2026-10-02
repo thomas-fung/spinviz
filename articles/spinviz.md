@@ -28,8 +28,10 @@ one or more columns of injury frequencies (one per sport or cohort).
 | Upper Limb    | Shoulder    | 5      |
 | Upper Limb    | Upper Arm   | 8      |
 
-The 18 recognised subcategories and their `region_area` groupings are
-available as the built-in `body_categories` taxonomy.
+The 18 recognised body subcategories and their `region_area` groupings,
+plus a special `Unspecified` category for injuries that cannot be
+localised, are available as the built-in `body_categories` taxonomy (19
+rows).
 
 ### Sunburst data
 
