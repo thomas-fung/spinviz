@@ -1,7 +1,5 @@
 # spinviz ![](reference/figures/spinviz_logo.png)
 
-## About
-
 The `spinviz` packages provides tools for visualising sporting injury
 frequencies as a **heatmap projected onto human-body SVG diagrams** in
 `R`.
@@ -22,6 +20,16 @@ with one-call convenience wrappers
 and
 [`save_diagram()`](https://thomas-fung.github.io/spinviz/reference/save_diagram.md)
 for exporting either diagram type to file at the correct aspect ratio.
+
+## Installation
+
+As this package is not currently on CRAN, install from GitHub:
+
+``` r
+
+# install.packages("pak")
+pak::pak("bnqcasimiro/spinviz")
+```
 
 ## Examples
 
@@ -98,16 +106,6 @@ Heatmaps are saved via
 [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html)
 (PNG, PDF, SVG, JPG, …); sunbursts via a headless Chromium browser
 through the optional `chromote` package (PNG, JPG, PDF).
-
-## Installation
-
-As this package is not currently on CRAN, install from GitHub:
-
-``` r
-
-# install.packages("pak")
-pak::pak("bnqcasimiro/spinviz")
-```
 
 ## Getting Started
 
